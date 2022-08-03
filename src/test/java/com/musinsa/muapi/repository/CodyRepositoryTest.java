@@ -12,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -157,6 +158,7 @@ public class CodyRepositoryTest {
     fashion.brandNameChange("A","pants", 1000);
     fashionRepository.save(fashion);
     log.info(fashion);
+    
     
   }
   

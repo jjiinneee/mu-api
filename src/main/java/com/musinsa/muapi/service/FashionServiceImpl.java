@@ -1,9 +1,11 @@
 package com.musinsa.muapi.service;
 
 
+import com.musinsa.muapi.domain.Fashion;
 import com.musinsa.muapi.domain.QFashion;
 import com.musinsa.muapi.dto.CatePriceDTO;
 import com.musinsa.muapi.dto.FashionDTO;
+import com.musinsa.muapi.repository.FashionRepository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -18,6 +20,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,10 +28,12 @@ import java.util.stream.Stream;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CodyServiceImpl implements CodyService {
+public class FashionServiceImpl implements FashionService {
   
   @PersistenceContext
   private EntityManager em;
+  
+  private final FashionRepository fashionRepository;
   
   @Override
   public List<FashionDTO> cateFreeMin(){
@@ -123,5 +128,36 @@ public class CodyServiceImpl implements CodyService {
             .collect(Collectors.toList());
     
     return resultList;
+  }
+  
+  
+  @Override
+  public void createBrandCate(FashionDTO fashionDTO){
+    
+    Fashion fashion = Fashion.builder()
+            .brand(fashionDTO.getBrand())
+            .cateName(fashionDTO.getCateName())
+            .price(fashionDTO.getPrice())
+            .build();
+    
+    fashionRepository.save(fashion);
+  }
+  
+  @Override
+  public void updateBrandCate(FashionDTO fashionDTO){
+  
+    Optional<Fashion> result = fashionRepository.findById(fashionDTO.getId());
+  
+    Fashion fashion = result.orElseThrow();
+  
+    fashion.brandNameChange(fashion.getBrand(), fashion.getCateName(), fashion.getPrice());
+  
+    fashionRepository.save(fashion);
+  }
+  
+  
+  @Override
+  public void deleteBrandCate(Long id){
+    fashionRepository.deleteById(id);
   }
 }

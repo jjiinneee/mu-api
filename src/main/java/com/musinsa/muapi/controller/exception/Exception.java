@@ -1,7 +1,7 @@
 package com.musinsa.muapi.controller.exception;
 
 
-import com.musinsa.muapi.controller.CodyController;
+import com.musinsa.muapi.controller.FashionController;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +15,8 @@ import java.util.Map;
 @Log4j2
 public class Exception  {
   
-  @ExceptionHandler({CodyController.CodyNotFoundException.class})
-  public ResponseEntity<Map<String, String>> notFound(CodyController.CodyNotFoundException e) {
+  @ExceptionHandler({FashionController.CodyNotFoundException.class})
+  public ResponseEntity<Map<String, String>> notFound(FashionController.CodyNotFoundException e) {
     
     log.error(e);
     Map<String, String> errorMap = new HashMap<>();
