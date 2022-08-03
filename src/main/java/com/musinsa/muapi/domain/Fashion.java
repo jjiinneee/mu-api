@@ -22,9 +22,9 @@ public class Fashion {
   private String cateName;
   private Integer price;
   
-  
-  
-  
-  
-  
+  public void brandNameChange(String brand, String cateName, Integer price) {
+    this.brand = brand;
+    this.cateName = cateName;
+    this.price = price;
+  }
 }

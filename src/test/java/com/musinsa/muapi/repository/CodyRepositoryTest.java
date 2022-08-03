@@ -1,5 +1,6 @@
 package com.musinsa.muapi.repository;
 
+import com.musinsa.muapi.domain.Fashion;
 import com.musinsa.muapi.domain.QFashion;
 import com.musinsa.muapi.dto.CatePriceDTO;
 import com.musinsa.muapi.dto.FashionDTO;
@@ -9,6 +10,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManager;
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,6 +29,8 @@ public class CodyRepositoryTest {
   @PersistenceContext
   private EntityManager em;
  
+  @Autowired
+  private FashionRepository fashionRepository;
   
   @Test
   public void cateNameMin(){
@@ -128,4 +133,37 @@ public class CodyRepositoryTest {
     log.info(resultList);
   }
   
+  
+  @Test
+  public void createBrandAddCate(){
+    // 브랜드  상품 가격 추가
+    Fashion fashion = Fashion.builder()
+            .brand("E")
+            .cateName("top")
+            .price(50)
+            .build();
+  
+  
+    fashionRepository.save(fashion);
+  }
+  
+  @Test
+  public void updateBrandCate(){
+    Long id = 134L;
+    
+    Optional<Fashion> result = fashionRepository.findById(id);
+    Fashion fashion = result.orElseThrow();
+  
+    fashion.brandNameChange("A","pants", 1000);
+    fashionRepository.save(fashion);
+    log.info(fashion);
+    
+  }
+  
+  @Test
+  public void deleteBrandCate(){
+    Long id = 134L;
+    
+    fashionRepository.deleteById(id);
+  }
 }

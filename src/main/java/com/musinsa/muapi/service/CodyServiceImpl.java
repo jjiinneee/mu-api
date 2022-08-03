@@ -4,7 +4,6 @@ package com.musinsa.muapi.service;
 import com.musinsa.muapi.domain.QFashion;
 import com.musinsa.muapi.dto.CatePriceDTO;
 import com.musinsa.muapi.dto.FashionDTO;
-import com.musinsa.muapi.repository.CateRepository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -31,7 +30,6 @@ public class CodyServiceImpl implements CodyService {
   @PersistenceContext
   private EntityManager em;
   
-  private final CateRepository cateRepository;
   @Override
   public List<FashionDTO> cateFreeMin(){
     JPAQueryFactory queryFactory = new JPAQueryFactory(em);
